@@ -53,7 +53,9 @@ export async function POST(request: Request) {
   }: { id: string; messages: Array<Message>; modelId: string } =
     await request.json();
 
-  const session = await auth();
+  let session = await auth();
+  // @ts-ignore
+  session.user.id = 'anonymous';
 
   if (!session || !session.user || !session.user.id) {
     return new Response('Unauthorized', { status: 401 });
@@ -162,7 +164,9 @@ export async function DELETE(request: Request) {
     return new Response('Not Found', { status: 404 });
   }
 
-  const session = await auth();
+  let session = await auth();
+  // @ts-ignore
+  session.user.id = 'anonymous';
 
   if (!session || !session.user) {
     return new Response('Unauthorized', { status: 401 });

@@ -11,6 +11,8 @@ export const authConfig = {
   ],
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
+      return true;
+
       const isLoggedIn = !!auth?.user;
       const isOnChat = nextUrl.pathname.startsWith('/');
       const isOnRegister = nextUrl.pathname.startsWith('/register');
@@ -33,7 +35,7 @@ export const authConfig = {
         return Response.redirect(new URL('/', nextUrl as unknown as URL));
       }
 
-      return true;
+      // return true;
     },
   },
 } satisfies NextAuthConfig;

@@ -9,7 +9,9 @@ export async function GET(request: Request) {
     return new Response('Not Found', { status: 404 });
   }
 
-  const session = await auth();
+  let session = await auth();
+  // @ts-ignore
+  session.user.id = 'anonymous';
 
   if (!session || !session.user) {
     return new Response('Unauthorized', { status: 401 });

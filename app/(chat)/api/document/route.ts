@@ -14,7 +14,9 @@ export async function GET(request: Request) {
     return new Response('Missing id', { status: 400 });
   }
 
-  const session = await auth();
+  let session = await auth();
+  // @ts-ignore
+  session.user.id = 'anonymous';
 
   if (!session || !session.user) {
     return new Response('Unauthorized', { status: 401 });
@@ -43,7 +45,9 @@ export async function POST(request: Request) {
     return new Response('Missing id', { status: 400 });
   }
 
-  const session = await auth();
+  let session = await auth();
+  // @ts-ignore
+  session.user.id = 'anonymous';
 
   if (!session) {
     return new Response('Unauthorized', { status: 401 });
@@ -79,7 +83,9 @@ export async function PATCH(request: Request) {
     return new Response('Missing id', { status: 400 });
   }
 
-  const session = await auth();
+  let session = await auth();
+  // @ts-ignore
+  session.user.id = 'anonymous';
 
   if (!session || !session.user) {
     return new Response('Unauthorized', { status: 401 });

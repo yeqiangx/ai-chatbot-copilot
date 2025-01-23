@@ -9,7 +9,9 @@ export async function GET(request: Request) {
     return new Response('chatId is required', { status: 400 });
   }
 
-  const session = await auth();
+  let session = await auth();
+  // @ts-ignore
+  session.user.id = 'anonymous';
 
   if (!session || !session.user || !session.user.email) {
     return new Response('Unauthorized', { status: 401 });
@@ -32,7 +34,9 @@ export async function PATCH(request: Request) {
     return new Response('messageId and type are required', { status: 400 });
   }
 
-  const session = await auth();
+  let session = await auth();
+  // @ts-ignore
+  session.user.id = 'anonymous';
 
   if (!session || !session.user || !session.user.email) {
     return new Response('Unauthorized', { status: 401 });

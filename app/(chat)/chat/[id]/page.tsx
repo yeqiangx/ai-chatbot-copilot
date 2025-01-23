@@ -17,7 +17,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     notFound();
   }
 
-  const session = await auth();
+  let session = await auth();
+  // @ts-ignore
+  session.user.id = 'anonymous';
 
   if (chat.visibility === 'private') {
     if (!session || !session.user) {
